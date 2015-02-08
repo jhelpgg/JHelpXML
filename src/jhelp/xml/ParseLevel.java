@@ -25,7 +25,7 @@ public enum ParseLevel
    EXCEPTION_AND_MARKUP_AND_PARAMETER(true, true, false),
    /** Detect exception and open/close markup and parameters and texts */
    EXCEPTION_AND_MARKUP_AND_PARAMETER_AND_TEXT(true, true, true),
-   /** Detect exception and parameters and texts */
+   /** Detect exception and open/close markup and texts */
    EXCEPTION_AND_MARKUP_AND_TEXT(true, false, true),
    /** Detect exception and parameters */
    EXCEPTION_AND_PARAMETER(false, true, false),
@@ -51,7 +51,7 @@ public enum ParseLevel
     * @param text
     *           Indicates if texts are detect
     */
-   private ParseLevel(boolean makup, boolean parameter, boolean text)
+   private ParseLevel(final boolean makup, final boolean parameter, final boolean text)
    {
       this.makup = makup;
       this.parameter = parameter;

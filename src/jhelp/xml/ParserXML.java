@@ -70,6 +70,50 @@ public class ParserXML
    }
 
    /**
+    * Obtain an float in parameters
+    * 
+    * @param markup
+    *           Markup
+    * @param parameters
+    *           Parameters
+    * @param parameter
+    *           Parameter integer name
+    * @param mustHave
+    *           Indicates if the parameter must exists
+    * @param defaultValue
+    *           Value return if the value not exist and <code>mustHave</code> is {@code false}
+    * @return The intger
+    * @throws MissingRequiredParameterException
+    *            If <code>mustHave</code> is {@code true} and the parameter not exists
+    * @throws InvalidParameterValueException
+    *            If the parameter is not a float
+    */
+   public static float obtainFloat(final String markup, final Hashtable<String, String> parameters, final String parameter, final boolean mustHave, final float defaultValue) throws MissingRequiredParameterException,
+         InvalidParameterValueException
+   {
+      final String value = parameters.get(parameter);
+
+      if((value == null) && (mustHave == true))
+      {
+         throw new MissingRequiredParameterException(parameter, markup);
+      }
+
+      if(value == null)
+      {
+         return defaultValue;
+      }
+
+      try
+      {
+         return Float.parseFloat(value);
+      }
+      catch(final Exception exception)
+      {
+         throw new InvalidParameterValueException(parameter, markup, UtilText.concatenate(value, " is not a float"), exception);
+      }
+   }
+
+   /**
     * Obtain an integer in parameters
     * 
     * @param markup
@@ -109,7 +153,7 @@ public class ParserXML
       }
       catch(final Exception exception)
       {
-         throw new InvalidParameterValueException(parameter, markup, "Must be an integer", exception);
+         throw new InvalidParameterValueException(parameter, markup, UtilText.concatenate(value, " is not an integer"), exception);
       }
    }
 
@@ -376,7 +420,7 @@ public class ParserXML
                      backSlash = false;
                   break;
                   case '\\':
-                     if((onComment == false) && (onQuote == false))
+                     if((onComment == false) && (onQuote == false) && (onText == false))
                      {
                         throw new IllegalArgumentException("Syntax error");
                      }
@@ -402,6 +446,13 @@ public class ParserXML
                      }
                   break;
                   default:
+                     if(backSlash == true)
+                     {
+                        stringBuffer.append(car);
+                        backSlash = false;
+                        break;
+                     }
+
                      if(searchNextParameter == true)
                      {
                         if(car > 32)
@@ -444,6 +495,7 @@ public class ParserXML
                                     break;
                                     default:
                                        stringBuffer.append(car);
+                                       backSlash = false;
                                     break;
                                  }
                               }

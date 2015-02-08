@@ -13,6 +13,7 @@ import java.io.InputStream;
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Modifier;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -604,6 +605,12 @@ public class XMLSerializer
       {
          for(final Field field : clas.getDeclaredFields())
          {
+            // Final fileds don't need to be stored, because they can't change
+            if(Modifier.isFinal(field.getModifiers()) == true)
+            {
+               continue;
+            }
+
             field.setAccessible(true);
             name = field.getName();
 
