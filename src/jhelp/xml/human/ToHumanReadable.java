@@ -1,9 +1,12 @@
 /**
- * Project : JHelpXML<br>
- * Package : jhelp.xml.human<br>
- * Class : ToHumanReadable<br>
- * Date : 13 mai 2009<br>
- * By JHelp
+ * <h1>License :</h1> <br>
+ * The following code is deliver as is. I take care that code compile and work, but I am not responsible about any damage it may
+ * cause.<br>
+ * You can use, modify, the code as your need for any usage. But you can't do any action that avoid me or other person use,
+ * modify this code. The code is free for usage and modification, you can't change that fact.<br>
+ * <br>
+ * 
+ * @author JHelp
  */
 package jhelp.xml.human;
 
@@ -91,7 +94,8 @@ public class ToHumanReadable
          source = new File(directory, file);
          if(source.exists() == false)
          {
-            JOptionPane.showMessageDialog(null, UtilText.concatenate("File ", source.getAbsolutePath(), " doesn't exists !"), "Stupid !", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, UtilText.concatenate("File ", source.getAbsolutePath(), " doesn't exists !"), "Stupid !",
+                  JOptionPane.WARNING_MESSAGE);
             break;
          }
 
@@ -136,8 +140,8 @@ public class ToHumanReadable
          }
          catch(final Exception exception)
          {
-            JOptionPane.showMessageDialog(null, UtilText.concatenate("<html>Problem append during conversion : <b>", exception.getLocalizedMessage(), "</b><br>See console for more details</html>"), "Error !",
-                  JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, UtilText.concatenate("<html>Problem append during conversion : <b>", exception.getLocalizedMessage(),
+                  "</b><br>See console for more details</html>"), "Error !", JOptionPane.ERROR_MESSAGE);
             exception.printStackTrace();
          }
          finally
@@ -154,7 +158,8 @@ public class ToHumanReadable
             }
          }
 
-         oneMore = JOptionPane.showConfirmDialog(null, "Do you want do an other conversion ?", "One more ?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION;
+         oneMore = JOptionPane.showConfirmDialog(null, "Do you want do an other conversion ?", "One more ?", JOptionPane.YES_NO_OPTION,
+               JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION;
       }
 
       dynamicWriteXML = null;
@@ -262,7 +267,8 @@ public class ToHumanReadable
     * @see jhelp.xml.ParseXMLlistener#startMakup(java.lang.String, java.util.Hashtable)
     */
    @Override
-   public void startMakup(final String markupName, final Hashtable<String, String> parameters) throws MissingRequiredParameterException, InvalidParameterValueException
+   public void startMakup(final String markupName, final Hashtable<String, String> parameters) throws MissingRequiredParameterException,
+         InvalidParameterValueException
    {
       try
       {

@@ -1,6 +1,12 @@
 /**
- * You can use the following code as you want.<br>
- * We are not responsible any bad effect that the code can produce.
+ * <h1>License :</h1> <br>
+ * The following code is deliver as is. I take care that code compile and work, but I am not responsible about any damage it may
+ * cause.<br>
+ * You can use, modify, the code as your need for any usage. But you can't do any action that avoid me or other person use,
+ * modify this code. The code is free for usage and modification, you can't change that fact.<br>
+ * <br>
+ * 
+ * @author JHelp
  */
 package jhelp.xml;
 
@@ -109,7 +115,7 @@ public class GenerateUnbuntuSlideShowBackground
     */
    public static void main(final String[] args)
    {
-      if(args == null || args.length != 4)
+      if((args == null) || (args.length != 4))
       {
          GenerateUnbuntuSlideShowBackground.printUsage();
 
@@ -123,9 +129,10 @@ public class GenerateUnbuntuSlideShowBackground
       {
          File directory = new File(args[0]);
 
-         if(directory.exists() == false || directory.isDirectory() == false || directory.canRead() == false)
+         if((directory.exists() == false) || (directory.isDirectory() == false) || (directory.canRead() == false))
          {
-            throw new IllegalArgumentException("The directory '" + directory.getAbsolutePath() + "' dosen't exits or not a directory or can't be access in read");
+            throw new IllegalArgumentException("The directory '" + directory.getAbsolutePath()
+                  + "' dosen't exits or not a directory or can't be access in read");
          }
 
          final File file = new File(args[1]);
@@ -260,7 +267,7 @@ public class GenerateUnbuntuSlideShowBackground
             }
          }
 
-         if(previous != null && first != null)
+         if((previous != null) && (first != null))
          {
             bufferedWriter.write("   <transition>");
             bufferedWriter.newLine();

@@ -1,9 +1,12 @@
 /**
- * Project : JHelpXML<br>
- * Package : jhelp.xml<br>
- * Class : ParserXML<br>
- * Date : 21 fevr. 2009<br>
- * By JHelp
+ * <h1>License :</h1> <br>
+ * The following code is deliver as is. I take care that code compile and work, but I am not responsible about any damage it may
+ * cause.<br>
+ * You can use, modify, the code as your need for any usage. But you can't do any action that avoid me or other person use,
+ * modify this code. The code is free for usage and modification, you can't change that fact.<br>
+ * <br>
+ * 
+ * @author JHelp
  */
 package jhelp.xml;
 
@@ -46,8 +49,8 @@ public class ParserXML
     * @throws InvalidParameterValueException
     *            If the parameter is not a boolean
     */
-   public static boolean obtainBoolean(final String markup, final Hashtable<String, String> parameters, final String parameter, final boolean mustHave, final boolean defaultValue) throws MissingRequiredParameterException,
-         InvalidParameterValueException
+   public static boolean obtainBoolean(final String markup, final Hashtable<String, String> parameters, final String parameter, final boolean mustHave,
+         final boolean defaultValue) throws MissingRequiredParameterException, InvalidParameterValueException
    {
       final String value = parameters.get(parameter);
 
@@ -88,8 +91,8 @@ public class ParserXML
     * @throws InvalidParameterValueException
     *            If the parameter is not a float
     */
-   public static float obtainFloat(final String markup, final Hashtable<String, String> parameters, final String parameter, final boolean mustHave, final float defaultValue) throws MissingRequiredParameterException,
-         InvalidParameterValueException
+   public static float obtainFloat(final String markup, final Hashtable<String, String> parameters, final String parameter, final boolean mustHave,
+         final float defaultValue) throws MissingRequiredParameterException, InvalidParameterValueException
    {
       final String value = parameters.get(parameter);
 
@@ -132,8 +135,8 @@ public class ParserXML
     * @throws InvalidParameterValueException
     *            If the parameter is not an integer
     */
-   public static int obtainInteger(final String markup, final Hashtable<String, String> parameters, final String parameter, final boolean mustHave, final int defaultValue) throws MissingRequiredParameterException,
-         InvalidParameterValueException
+   public static int obtainInteger(final String markup, final Hashtable<String, String> parameters, final String parameter, final boolean mustHave,
+         final int defaultValue) throws MissingRequiredParameterException, InvalidParameterValueException
    {
       final String value = parameters.get(parameter);
 
@@ -172,7 +175,8 @@ public class ParserXML
     * @throws MissingRequiredParameterException
     *            If <code>mustHave</code> is {@code true} and parameter not exists
     */
-   public static String obtainParameter(final String markup, final Hashtable<String, String> parameters, final String parameter, final boolean mustHave) throws MissingRequiredParameterException
+   public static String obtainParameter(final String markup, final Hashtable<String, String> parameters, final String parameter, final boolean mustHave)
+         throws MissingRequiredParameterException
    {
       final String value = parameters.get(parameter);
 
@@ -556,7 +560,7 @@ public class ParserXML
     * Parse a stream
     * 
     * @param parseXMLlistener
-    *           Listener for react on marhup meet
+    *           Listener for react on markup meet
     * @param inputStream
     *           Stream to parse
     * @throws ExceptionParseXML

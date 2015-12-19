@@ -1,9 +1,12 @@
 /**
- * Project : JHelpXML<br>
- * Package : jhelp.xml.io<br>
- * Class : XMLSerializer<br>
- * Date : 23 mai 2010<br>
- * By JHelp
+ * <h1>License :</h1> <br>
+ * The following code is deliver as is. I take care that code compile and work, but I am not responsible about any damage it may
+ * cause.<br>
+ * You can use, modify, the code as your need for any usage. But you can't do any action that avoid me or other person use,
+ * modify this code. The code is free for usage and modification, you can't change that fact.<br>
+ * <br>
+ * 
+ * @author JHelp
  */
 package jhelp.xml.io;
 
@@ -69,8 +72,8 @@ public class XMLSerializer
     *            If problem while deserialize an array
     */
    @SuppressWarnings("unchecked")
-   public static <T> T deserialize(final Class<T> clas, final InputStream inputStream) throws IOException, ExceptionParseXML, IllegalArgumentException, NoSuchFieldException, IllegalAccessException, NoSuchMethodException,
-         InvocationTargetException, URISyntaxException, ClassNotFoundException
+   public static <T> T deserialize(final Class<T> clas, final InputStream inputStream) throws IOException, ExceptionParseXML, IllegalArgumentException,
+         NoSuchFieldException, IllegalAccessException, NoSuchMethodException, InvocationTargetException, URISyntaxException, ClassNotFoundException
    {
       final T object = (T) Reflector.newInstance(clas);
 
@@ -107,8 +110,8 @@ public class XMLSerializer
     * @throws ClassNotFoundException
     *            If problem while deserialize an array
     */
-   public static void deserialize(final Object object, final Class<?> clas, final MarkupXML markupXML) throws IllegalArgumentException, NoSuchFieldException, IllegalAccessException, NoSuchMethodException, InvocationTargetException,
-         MalformedURLException, URISyntaxException, ClassNotFoundException
+   public static void deserialize(final Object object, final Class<?> clas, final MarkupXML markupXML) throws IllegalArgumentException, NoSuchFieldException,
+         IllegalAccessException, NoSuchMethodException, InvocationTargetException, MalformedURLException, URISyntaxException, ClassNotFoundException
    {
       Field field;
       Object content;
@@ -173,8 +176,9 @@ public class XMLSerializer
             {
                field.set(object, value);
             }
-            else if(((fieldClass.isEnum() == true) || (fieldClass.equals(Boolean.class) == true) || (fieldClass.equals(Character.class) == true) || (fieldClass.equals(Byte.class) == true) || (fieldClass.equals(Short.class) == true)
-                  || (fieldClass.equals(Integer.class) == true) || (fieldClass.equals(Long.class) == true) || (fieldClass.equals(Float.class) == true) || (fieldClass.equals(Double.class) == true))
+            else if(((fieldClass.isEnum() == true) || (fieldClass.equals(Boolean.class) == true) || (fieldClass.equals(Character.class) == true)
+                  || (fieldClass.equals(Byte.class) == true) || (fieldClass.equals(Short.class) == true) || (fieldClass.equals(Integer.class) == true)
+                  || (fieldClass.equals(Long.class) == true) || (fieldClass.equals(Float.class) == true) || (fieldClass.equals(Double.class) == true))
                   && (value != null))
             {
                field.set(object, Reflector.invokePublicMethod(fieldClass, "valueOf", value));
@@ -337,9 +341,9 @@ public class XMLSerializer
 
                      field.set(object, array);
                   }
-                  else if((arrayClass.isEnum() == true) || (arrayClass.equals(Boolean.class) == true) || (arrayClass.equals(Character.class) == true) || (arrayClass.equals(Byte.class) == true)
-                        || (arrayClass.equals(Short.class) == true) || (arrayClass.equals(Integer.class) == true) || (arrayClass.equals(Long.class) == true) || (arrayClass.equals(Float.class) == true)
-                        || (arrayClass.equals(Double.class) == true))
+                  else if((arrayClass.isEnum() == true) || (arrayClass.equals(Boolean.class) == true) || (arrayClass.equals(Character.class) == true)
+                        || (arrayClass.equals(Byte.class) == true) || (arrayClass.equals(Short.class) == true) || (arrayClass.equals(Integer.class) == true)
+                        || (arrayClass.equals(Long.class) == true) || (arrayClass.equals(Float.class) == true) || (arrayClass.equals(Double.class) == true))
                   {
                      final Object array = Array.newInstance(arrayClass, arraySize);
                      final StringExtractor stringWordExctractor = new StringExtractor(fieldMarkup.getText());
@@ -557,7 +561,8 @@ public class XMLSerializer
     * @throws IOException
     *            On I/O issue
     */
-   public static void serialize(final Object object, final DynamicWriteXML dynamicWriteXML) throws IllegalArgumentException, IllegalAccessException, IOException
+   public static void serialize(final Object object, final DynamicWriteXML dynamicWriteXML) throws IllegalArgumentException, IllegalAccessException,
+         IOException
    {
       XMLSerializer.serialize(object, dynamicWriteXML, true);
    }
@@ -578,7 +583,8 @@ public class XMLSerializer
     * @throws IOException
     *            On I/O issue
     */
-   public static void serialize(final Object object, final DynamicWriteXML dynamicWriteXML, final boolean onlyAnnotated) throws IllegalArgumentException, IllegalAccessException, IOException
+   public static void serialize(final Object object, final DynamicWriteXML dynamicWriteXML, final boolean onlyAnnotated) throws IllegalArgumentException,
+         IllegalAccessException, IOException
    {
       if(object == null)
       {
@@ -626,9 +632,11 @@ public class XMLSerializer
 
                if(value != null)
                {
-                  if((fieldClass.isPrimitive() == true) || (fieldClass.equals(String.class) == true) || (fieldClass.isEnum() == true) || (fieldClass.equals(Boolean.class) == true) || (fieldClass.equals(Character.class) == true)
-                        || (fieldClass.equals(Byte.class) == true) || (fieldClass.equals(Short.class) == true) || (fieldClass.equals(Integer.class) == true) || (fieldClass.equals(Long.class) == true)
-                        || (fieldClass.equals(Float.class) == true) || (fieldClass.equals(Double.class) == true) || (fieldClass.equals(StringBuilder.class) == true) || (fieldClass.equals(StringBuffer.class) == true)
+                  if((fieldClass.isPrimitive() == true) || (fieldClass.equals(String.class) == true) || (fieldClass.isEnum() == true)
+                        || (fieldClass.equals(Boolean.class) == true) || (fieldClass.equals(Character.class) == true)
+                        || (fieldClass.equals(Byte.class) == true) || (fieldClass.equals(Short.class) == true) || (fieldClass.equals(Integer.class) == true)
+                        || (fieldClass.equals(Long.class) == true) || (fieldClass.equals(Float.class) == true) || (fieldClass.equals(Double.class) == true)
+                        || (fieldClass.equals(StringBuilder.class) == true) || (fieldClass.equals(StringBuffer.class) == true)
                         || (fieldClass.equals(URL.class) == true) || (fieldClass.equals(URI.class) == true))
                   {
                      dynamicWriteXML.appendParameter("value", UtilText.addAntiSlash(value.toString(), false));
@@ -766,9 +774,11 @@ public class XMLSerializer
                            dynamicWriteXML.setText(stringBuffer.toString());
                         }
                      }
-                     else if((arrayClass.equals(String.class) == true) || (arrayClass.isEnum() == true) || (arrayClass.equals(Boolean.class) == true) || (arrayClass.equals(Character.class) == true)
-                           || (arrayClass.equals(Byte.class) == true) || (arrayClass.equals(Short.class) == true) || (arrayClass.equals(Integer.class) == true) || (arrayClass.equals(Long.class) == true)
-                           || (arrayClass.equals(Float.class) == true) || (arrayClass.equals(Double.class) == true) || (arrayClass.equals(StringBuilder.class) == true) || (arrayClass.equals(StringBuffer.class) == true)
+                     else if((arrayClass.equals(String.class) == true) || (arrayClass.isEnum() == true) || (arrayClass.equals(Boolean.class) == true)
+                           || (arrayClass.equals(Character.class) == true) || (arrayClass.equals(Byte.class) == true)
+                           || (arrayClass.equals(Short.class) == true) || (arrayClass.equals(Integer.class) == true) || (arrayClass.equals(Long.class) == true)
+                           || (arrayClass.equals(Float.class) == true) || (arrayClass.equals(Double.class) == true)
+                           || (arrayClass.equals(StringBuilder.class) == true) || (arrayClass.equals(StringBuffer.class) == true)
                            || (arrayClass.equals(URL.class) == true) || (arrayClass.equals(URI.class) == true))
                      {
                         array = (Object[]) value;
@@ -977,9 +987,12 @@ public class XMLSerializer
                                        dynamicWriteXML.setText(stringBuffer.toString());
                                     }
                                  }
-                                 else if((arrayClass.equals(String.class) == true) || (arrayClass.isEnum() == true) || (arrayClass.equals(Boolean.class) == true) || (arrayClass.equals(Character.class) == true)
-                                       || (arrayClass.equals(Byte.class) == true) || (arrayClass.equals(Short.class) == true) || (arrayClass.equals(Integer.class) == true) || (arrayClass.equals(Long.class) == true)
-                                       || (arrayClass.equals(Float.class) == true) || (arrayClass.equals(Double.class) == true) || (arrayClass.equals(StringBuilder.class) == true) || (arrayClass.equals(StringBuffer.class) == true)
+                                 else if((arrayClass.equals(String.class) == true) || (arrayClass.isEnum() == true)
+                                       || (arrayClass.equals(Boolean.class) == true) || (arrayClass.equals(Character.class) == true)
+                                       || (arrayClass.equals(Byte.class) == true) || (arrayClass.equals(Short.class) == true)
+                                       || (arrayClass.equals(Integer.class) == true) || (arrayClass.equals(Long.class) == true)
+                                       || (arrayClass.equals(Float.class) == true) || (arrayClass.equals(Double.class) == true)
+                                       || (arrayClass.equals(StringBuilder.class) == true) || (arrayClass.equals(StringBuffer.class) == true)
                                        || (arrayClass.equals(URL.class) == true) || (arrayClass.equals(URI.class) == true))
                                  {
                                     array = (Object[]) value;

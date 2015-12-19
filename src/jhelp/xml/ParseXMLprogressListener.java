@@ -1,9 +1,12 @@
 /**
- * Project : JHelpXML<br>
- * Package : jhelp.xml<br>
- * Class : ParseXMLerror<br>
- * Date : 21 fevr. 2009<br>
- * By JHelp
+ * <h1>License :</h1> <br>
+ * The following code is deliver as is. I take care that code compile and work, but I am not responsible about any damage it may
+ * cause.<br>
+ * You can use, modify, the code as your need for any usage. But you can't do any action that avoid me or other person use,
+ * modify this code. The code is free for usage and modification, you can't change that fact.<br>
+ * <br>
+ * 
+ * @author JHelp
  */
 package jhelp.xml;
 
@@ -18,16 +21,12 @@ package jhelp.xml;
 public interface ParseXMLprogressListener
 {
    /**
-    * Call when meet an open of markup
+    * Call when parsing cause an exception
     * 
-    * @param markupName
-    *           Markup name
-    * @param line
-    *           Current line in XML
-    * @param column
-    *           Current column in XML
+    * @param exceptionParseXML
+    *           Exception cause
     */
-   public void findOpenMarkup(String markupName, int line, int column);
+   public void exceptionAppend(ExceptionParseXML exceptionParseXML);
 
    /**
     * Call when meet a close of markup
@@ -42,18 +41,16 @@ public interface ParseXMLprogressListener
    public void findCloseMarkup(String markupName, int line, int column);
 
    /**
-    * Call when meet text in markup
+    * Call when meet an open of markup
     * 
     * @param markupName
     *           Markup name
-    * @param text
-    *           Text find
     * @param line
     *           Current line in XML
     * @param column
     *           Current column in XML
     */
-   public void findTextMarkup(String markupName, String text, int line, int column);
+   public void findOpenMarkup(String markupName, int line, int column);
 
    /**
     * Call when find parameter in markup
@@ -70,10 +67,16 @@ public interface ParseXMLprogressListener
    public void findParameter(String markupName, String parameterName, int line, int column);
 
    /**
-    * Call when parsing cause an exception
+    * Call when meet text in markup
     * 
-    * @param exceptionParseXML
-    *           Exception cause
+    * @param markupName
+    *           Markup name
+    * @param text
+    *           Text find
+    * @param line
+    *           Current line in XML
+    * @param column
+    *           Current column in XML
     */
-   public void exceptionAppend(ExceptionParseXML exceptionParseXML);
+   public void findTextMarkup(String markupName, String text, int line, int column);
 }
