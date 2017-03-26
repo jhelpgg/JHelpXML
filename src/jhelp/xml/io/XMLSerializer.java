@@ -119,7 +119,8 @@ public class XMLSerializer
       String value, fieldClassName;
       int arraySize;
 
-      if(clas.getName().equals(markupXML.obtainParameter("name")) == false)
+      if(!clas.getName()
+              .equals(markupXML.obtainParameter("name")))
       {
          throw new IllegalArgumentException("The class is " + clas.getName() + " but the XML is for " + markupXML.obtainParameter("name"));
       }
@@ -135,75 +136,80 @@ public class XMLSerializer
             value = fieldMarkup.obtainParameter("value");
             arraySize = fieldMarkup.obtainParameter("array", -1);
 
-            if((fieldClass.isPrimitive() == true) && (value != null))
+            if((fieldClass.isPrimitive()) && (value != null))
             {
                fieldClassName = fieldClass.getName();
 
-               if(fieldClassName.equals("boolean") == true)
+               if(fieldClassName.equals("boolean"))
                {
                   field.setBoolean(object, Boolean.parseBoolean(value));
                }
-               else if(fieldClassName.equals("char") == true)
+               else if(fieldClassName.equals("char"))
                {
                   field.setChar(object, value.charAt(0));
                }
-               else if(fieldClassName.equals("byte") == true)
+               else if(fieldClassName.equals("byte"))
                {
                   field.setByte(object, Byte.parseByte(value));
                }
-               else if(fieldClassName.equals("short") == true)
+               else if(fieldClassName.equals("short"))
                {
                   field.setShort(object, Short.parseShort(value));
                }
-               else if(fieldClassName.equals("int") == true)
+               else if(fieldClassName.equals("int"))
                {
                   field.setInt(object, Integer.parseInt(value));
                }
-               else if(fieldClassName.equals("long") == true)
+               else if(fieldClassName.equals("long"))
                {
                   field.setLong(object, Long.parseLong(value));
                }
-               else if(fieldClassName.equals("float") == true)
+               else if(fieldClassName.equals("float"))
                {
                   field.setFloat(object, Float.parseFloat(value));
                }
-               else if(fieldClassName.equals("double") == true)
+               else if(fieldClassName.equals("double"))
                {
                   field.setDouble(object, Double.parseDouble(value));
                }
             }
-            else if((fieldClass.equals(String.class) == true) && (value != null))
+            else if((fieldClass.equals(String.class)) && (value != null))
             {
                field.set(object, value);
             }
-            else if(((fieldClass.isEnum() == true) || (fieldClass.equals(Boolean.class) == true) || (fieldClass.equals(Character.class) == true)
-                  || (fieldClass.equals(Byte.class) == true) || (fieldClass.equals(Short.class) == true) || (fieldClass.equals(Integer.class) == true)
-                  || (fieldClass.equals(Long.class) == true) || (fieldClass.equals(Float.class) == true) || (fieldClass.equals(Double.class) == true))
+            else if(((fieldClass.isEnum()) || (fieldClass.equals(Boolean.class)) || (fieldClass.equals(
+                    Character.class))
+                  || (fieldClass.equals(Byte.class)) || (fieldClass.equals(Short.class)) || (fieldClass
+                                                                                                                     .equals(
+                    Integer.class))
+                  || (fieldClass.equals(Long.class)) || (fieldClass.equals(Float.class)) || (fieldClass
+                                                                                                                     .equals(
+                    Double.class)))
                   && (value != null))
             {
                field.set(object, Reflector.invokePublicMethod(fieldClass, "valueOf", value));
             }
-            else if((fieldClass.equals(StringBuilder.class) == true) && (value != null))
+            else if((fieldClass.equals(StringBuilder.class)) && (value != null))
             {
                field.set(object, new StringBuilder(UtilText.interpretAntiSlash(value)));
             }
-            else if((fieldClass.equals(StringBuffer.class) == true) && (value != null))
+            else if((fieldClass.equals(StringBuffer.class)) && (value != null))
             {
                field.set(object, new StringBuffer(UtilText.interpretAntiSlash(value)));
             }
-            else if((fieldClass.equals(URL.class) == true) && (value != null))
+            else if((fieldClass.equals(URL.class)) && (value != null))
             {
                field.set(object, new URL(UtilText.interpretAntiSlash(value)));
             }
-            else if((fieldClass.equals(URI.class) == true) && (value != null))
+            else if((fieldClass.equals(URI.class)) && (value != null))
             {
                field.set(object, new URI(UtilText.interpretAntiSlash(value)));
             }
-            else if(fieldClass.equals(File.class) == true)
+            else if(fieldClass.equals(File.class))
             {
                field.set(object, new File(UtilText.interpretAntiSlash(value)));
             }
-            else if(fieldClass.isArray() == true)
+            else if(fieldClass.isArray())
             {
                if(arraySize >= 0)
                {
@@ -215,100 +221,100 @@ public class XMLSerializer
                      arrayClass = Class.forName(realType);
                   }
 
-                  if(arrayClass.isPrimitive() == true)
+                  if(arrayClass.isPrimitive())
                   {
                      final String arrayClassName = arrayClass.getName();
 
-                     if(arrayClassName.equals("boolean") == true)
+                     if(arrayClassName.equals("boolean"))
                      {
                         final boolean[] temp = new boolean[arraySize];
                         final StringTokenizer stringTokenizer = new StringTokenizer(fieldMarkup.getText());
                         int index = 0;
-                        while((index < arraySize) && (stringTokenizer.hasMoreTokens() == true))
+                        while((index < arraySize) && (stringTokenizer.hasMoreTokens()))
                         {
                            temp[index++] = Boolean.parseBoolean(stringTokenizer.nextToken());
                         }
 
                         field.set(object, temp);
                      }
-                     else if(arrayClassName.equals("char") == true)
+                     else if(arrayClassName.equals("char"))
                      {
                         final char[] temp = new char[arraySize];
                         final StringTokenizer stringTokenizer = new StringTokenizer(fieldMarkup.getText());
                         int index = 0;
-                        while((index < arraySize) && (stringTokenizer.hasMoreTokens() == true))
+                        while((index < arraySize) && (stringTokenizer.hasMoreTokens()))
                         {
                            temp[index++] = stringTokenizer.nextToken().charAt(0);
                         }
 
                         field.set(object, temp);
                      }
-                     else if(arrayClassName.equals("byte") == true)
+                     else if(arrayClassName.equals("byte"))
                      {
                         final byte[] temp = new byte[arraySize];
                         final StringTokenizer stringTokenizer = new StringTokenizer(fieldMarkup.getText());
                         int index = 0;
-                        while((index < arraySize) && (stringTokenizer.hasMoreTokens() == true))
+                        while((index < arraySize) && (stringTokenizer.hasMoreTokens()))
                         {
                            temp[index++] = Byte.parseByte(stringTokenizer.nextToken());
                         }
 
                         field.set(object, temp);
                      }
-                     else if(arrayClassName.equals("short") == true)
+                     else if(arrayClassName.equals("short"))
                      {
                         final short[] temp = new short[arraySize];
                         final StringTokenizer stringTokenizer = new StringTokenizer(fieldMarkup.getText());
                         int index = 0;
-                        while((index < arraySize) && (stringTokenizer.hasMoreTokens() == true))
+                        while((index < arraySize) && (stringTokenizer.hasMoreTokens()))
                         {
                            temp[index++] = Short.parseShort(stringTokenizer.nextToken());
                         }
 
                         field.set(object, temp);
                      }
-                     else if(arrayClassName.equals("int") == true)
+                     else if(arrayClassName.equals("int"))
                      {
                         final int[] temp = new int[arraySize];
                         final StringTokenizer stringTokenizer = new StringTokenizer(fieldMarkup.getText());
                         int index = 0;
-                        while((index < arraySize) && (stringTokenizer.hasMoreTokens() == true))
+                        while((index < arraySize) && (stringTokenizer.hasMoreTokens()))
                         {
                            temp[index++] = Integer.parseInt(stringTokenizer.nextToken());
                         }
 
                         field.set(object, temp);
                      }
-                     else if(arrayClassName.equals("long") == true)
+                     else if(arrayClassName.equals("long"))
                      {
                         final long[] temp = new long[arraySize];
                         final StringTokenizer stringTokenizer = new StringTokenizer(fieldMarkup.getText());
                         int index = 0;
-                        while((index < arraySize) && (stringTokenizer.hasMoreTokens() == true))
+                        while((index < arraySize) && (stringTokenizer.hasMoreTokens()))
                         {
                            temp[index++] = Long.parseLong(stringTokenizer.nextToken());
                         }
 
                         field.set(object, temp);
                      }
-                     else if(arrayClassName.equals("float") == true)
+                     else if(arrayClassName.equals("float"))
                      {
                         final float[] temp = new float[arraySize];
                         final StringTokenizer stringTokenizer = new StringTokenizer(fieldMarkup.getText());
                         int index = 0;
-                        while((index < arraySize) && (stringTokenizer.hasMoreTokens() == true))
+                        while((index < arraySize) && (stringTokenizer.hasMoreTokens()))
                         {
                            temp[index++] = Float.parseFloat(stringTokenizer.nextToken());
                         }
 
                         field.set(object, temp);
                      }
-                     else if(arrayClassName.equals("double") == true)
+                     else if(arrayClassName.equals("double"))
                      {
                         final double[] temp = new double[arraySize];
                         final StringTokenizer stringTokenizer = new StringTokenizer(fieldMarkup.getText());
                         int index = 0;
-                        while((index < arraySize) && (stringTokenizer.hasMoreTokens() == true))
+                        while((index < arraySize) && (stringTokenizer.hasMoreTokens()))
                         {
                            temp[index++] = Double.parseDouble(stringTokenizer.nextToken());
                         }
@@ -316,7 +322,7 @@ public class XMLSerializer
                         field.set(object, temp);
                      }
                   }
-                  else if(arrayClass.equals(String.class) == true)
+                  else if(arrayClass.equals(String.class))
                   {
                      final String[] array = new String[arraySize];
                      final StringExtractor stringWordExctractor = new StringExtractor(fieldMarkup.getText());
@@ -331,7 +337,7 @@ public class XMLSerializer
                            break;
                         }
 
-                        if(word.equals("NULL") == false)
+                        if(!word.equals("NULL"))
                         {
                            array[index] = UtilText.interpretAntiSlash(word);
                         }
@@ -341,9 +347,13 @@ public class XMLSerializer
 
                      field.set(object, array);
                   }
-                  else if((arrayClass.isEnum() == true) || (arrayClass.equals(Boolean.class) == true) || (arrayClass.equals(Character.class) == true)
-                        || (arrayClass.equals(Byte.class) == true) || (arrayClass.equals(Short.class) == true) || (arrayClass.equals(Integer.class) == true)
-                        || (arrayClass.equals(Long.class) == true) || (arrayClass.equals(Float.class) == true) || (arrayClass.equals(Double.class) == true))
+                  else if((arrayClass.isEnum()) || (arrayClass.equals(Boolean.class)) || (arrayClass
+                                                                                                                  .equals(
+                          Character.class))
+                        || (arrayClass.equals(Byte.class)) || (arrayClass.equals(Short.class)) || (arrayClass.equals(
+                          Integer.class))
+                        || (arrayClass.equals(Long.class)) || (arrayClass.equals(Float.class)) || (arrayClass.equals(
+                          Double.class)))
                   {
                      final Object array = Array.newInstance(arrayClass, arraySize);
                      final StringExtractor stringWordExctractor = new StringExtractor(fieldMarkup.getText());
@@ -358,7 +368,7 @@ public class XMLSerializer
                            break;
                         }
 
-                        if(word.equals("NULL") == false)
+                        if(!word.equals("NULL"))
                         {
                            Array.set(array, index, Reflector.invokePublicMethod(arrayClass, "valueOf", word));
                         }
@@ -368,7 +378,7 @@ public class XMLSerializer
 
                      field.set(object, array);
                   }
-                  else if((arrayClass.equals(StringBuilder.class) == true) && (value != null))
+                  else if((arrayClass.equals(StringBuilder.class)) && (value != null))
                   {
                      final StringBuilder[] array = new StringBuilder[arraySize];
                      final StringExtractor stringWordExctractor = new StringExtractor(fieldMarkup.getText());
@@ -383,7 +393,7 @@ public class XMLSerializer
                            break;
                         }
 
-                        if(word.equals("NULL") == false)
+                        if(!word.equals("NULL"))
                         {
                            array[index] = new StringBuilder(UtilText.interpretAntiSlash(word));
                         }
@@ -393,7 +403,7 @@ public class XMLSerializer
 
                      field.set(object, array);
                   }
-                  else if((arrayClass.equals(StringBuffer.class) == true) && (value != null))
+                  else if((arrayClass.equals(StringBuffer.class)) && (value != null))
                   {
                      final StringBuffer[] array = new StringBuffer[arraySize];
                      final StringExtractor stringWordExctractor = new StringExtractor(fieldMarkup.getText());
@@ -408,7 +418,7 @@ public class XMLSerializer
                            break;
                         }
 
-                        if(word.equals("NULL") == false)
+                        if(!word.equals("NULL"))
                         {
                            array[index] = new StringBuffer(UtilText.interpretAntiSlash(word));
                         }
@@ -418,7 +428,7 @@ public class XMLSerializer
 
                      field.set(object, array);
                   }
-                  else if((arrayClass.equals(URL.class) == true) && (value != null))
+                  else if((arrayClass.equals(URL.class)) && (value != null))
                   {
                      final URL[] array = new URL[arraySize];
                      final StringExtractor stringWordExctractor = new StringExtractor(fieldMarkup.getText());
@@ -433,7 +443,7 @@ public class XMLSerializer
                            break;
                         }
 
-                        if(word.equals("NULL") == false)
+                        if(!word.equals("NULL"))
                         {
                            array[index] = new URL(UtilText.interpretAntiSlash(word));
                         }
@@ -443,7 +453,7 @@ public class XMLSerializer
 
                      field.set(object, array);
                   }
-                  else if((arrayClass.equals(URI.class) == true) && (value != null))
+                  else if((arrayClass.equals(URI.class)) && (value != null))
                   {
                      final URI[] array = new URI[arraySize];
                      final StringExtractor stringWordExctractor = new StringExtractor(fieldMarkup.getText());
@@ -458,7 +468,7 @@ public class XMLSerializer
                            break;
                         }
 
-                        if(word.equals("NULL") == false)
+                        if(!word.equals("NULL"))
                         {
                            array[index] = new URI(UtilText.interpretAntiSlash(word));
                         }
@@ -468,7 +478,7 @@ public class XMLSerializer
 
                      field.set(object, array);
                   }
-                  else if(arrayClass.equals(File.class) == true)
+                  else if(arrayClass.equals(File.class))
                   {
                      final File[] array = new File[arraySize];
                      final StringExtractor stringWordExctractor = new StringExtractor(fieldMarkup.getText());
@@ -483,7 +493,7 @@ public class XMLSerializer
                            break;
                         }
 
-                        if(word.equals("NULL") == false)
+                        if(!word.equals("NULL"))
                         {
                            array[index] = new File(UtilText.interpretAntiSlash(word));
                         }
@@ -493,7 +503,7 @@ public class XMLSerializer
 
                      field.set(object, array);
                   }
-                  else if(arrayClass.isArray() == true)
+                  else if(arrayClass.isArray())
                   {
                      throw new IllegalArgumentException("Multiple array not actually work");
                   }
@@ -506,7 +516,7 @@ public class XMLSerializer
                      MarkupXML xml;
                      Object temp;
 
-                     while((index < arraySize) && (enumeration.hasMoreElements() == true))
+                     while((index < arraySize) && (enumeration.hasMoreElements()))
                      {
                         xml = enumeration.getNextElement();
 
@@ -612,7 +622,7 @@ public class XMLSerializer
          for(final Field field : clas.getDeclaredFields())
          {
             // Final fileds don't need to be stored, because they can't change
-            if(Modifier.isFinal(field.getModifiers()) == true)
+            if(Modifier.isFinal(field.getModifiers()))
             {
                continue;
             }
@@ -620,10 +630,10 @@ public class XMLSerializer
             field.setAccessible(true);
             name = field.getName();
 
-            if((name.charAt(0) != '$') && (name.equals("serialVersionUID") == false)
+            if((name.charAt(0) != '$') && (!name.equals("serialVersionUID"))
             // $ : For coverage, they add dummy data the we don't want !
             // serialVersionUID : no need to store it
-                  && ((onlyAnnotated == false) || (field.getAnnotation(XMLSerializable.class) != null)))
+                  && ((!onlyAnnotated) || (field.getAnnotation(XMLSerializable.class) != null)))
             {
                dynamicWriteXML.openMarkup(name);
 
@@ -632,34 +642,37 @@ public class XMLSerializer
 
                if(value != null)
                {
-                  if((fieldClass.isPrimitive() == true) || (fieldClass.equals(String.class) == true) || (fieldClass.isEnum() == true)
-                        || (fieldClass.equals(Boolean.class) == true) || (fieldClass.equals(Character.class) == true)
-                        || (fieldClass.equals(Byte.class) == true) || (fieldClass.equals(Short.class) == true) || (fieldClass.equals(Integer.class) == true)
-                        || (fieldClass.equals(Long.class) == true) || (fieldClass.equals(Float.class) == true) || (fieldClass.equals(Double.class) == true)
-                        || (fieldClass.equals(StringBuilder.class) == true) || (fieldClass.equals(StringBuffer.class) == true)
-                        || (fieldClass.equals(URL.class) == true) || (fieldClass.equals(URI.class) == true))
+                  if((fieldClass.isPrimitive()) || (fieldClass.equals(String.class)) || (fieldClass
+                                                                                                                 .isEnum())
+                        || (fieldClass.equals(Boolean.class)) || (fieldClass.equals(Character.class))
+                        || (fieldClass.equals(Byte.class)) || (fieldClass.equals(Short.class)) || (fieldClass.equals(
+                          Integer.class))
+                        || (fieldClass.equals(Long.class)) || (fieldClass.equals(Float.class)) || (fieldClass.equals(
+                          Double.class))
+                        || (fieldClass.equals(StringBuilder.class)) || (fieldClass.equals(StringBuffer.class))
+                        || (fieldClass.equals(URL.class)) || (fieldClass.equals(URI.class)))
                   {
                      dynamicWriteXML.appendParameter("value", UtilText.addAntiSlash(value.toString(), false));
                   }
-                  else if(fieldClass.equals(File.class) == true)
+                  else if(fieldClass.equals(File.class))
                   {
                      dynamicWriteXML.appendParameter("value", UtilText.addAntiSlash(((File) value).getAbsolutePath(), false));
                   }
-                  else if(fieldClass.isArray() == true)
+                  else if(fieldClass.isArray())
                   {
                      arrayClass = fieldClass.getComponentType();
 
-                     if(arrayClass.isPrimitive() == true)
+                     if(arrayClass.isPrimitive())
                      {
                         arrayClassName = arrayClass.getName();
 
-                        if(arrayClassName.equals("boolean") == true)
+                        if(arrayClassName.equals("boolean"))
                         {
                            final boolean[] temp = (boolean[]) value;
                            size = temp.length;
                            dynamicWriteXML.appendParameter("array", size);
 
-                           final StringBuffer stringBuffer = new StringBuffer();
+                           final StringBuilder stringBuffer = new StringBuilder();
                            for(int i = 0; i < size; i++)
                            {
                               stringBuffer.append(temp[i]);
@@ -668,13 +681,13 @@ public class XMLSerializer
 
                            dynamicWriteXML.setText(stringBuffer.toString());
                         }
-                        else if(arrayClassName.equals("char") == true)
+                        else if(arrayClassName.equals("char"))
                         {
                            final char[] temp = (char[]) value;
                            size = temp.length;
                            dynamicWriteXML.appendParameter("array", size);
 
-                           final StringBuffer stringBuffer = new StringBuffer();
+                           final StringBuilder stringBuffer = new StringBuilder();
                            for(int i = 0; i < size; i++)
                            {
                               stringBuffer.append(temp[i]);
@@ -683,13 +696,13 @@ public class XMLSerializer
 
                            dynamicWriteXML.setText(stringBuffer.toString());
                         }
-                        else if(arrayClassName.equals("byte") == true)
+                        else if(arrayClassName.equals("byte"))
                         {
                            final byte[] temp = (byte[]) value;
                            size = temp.length;
                            dynamicWriteXML.appendParameter("array", size);
 
-                           final StringBuffer stringBuffer = new StringBuffer();
+                           final StringBuilder stringBuffer = new StringBuilder();
                            for(int i = 0; i < size; i++)
                            {
                               stringBuffer.append(temp[i]);
@@ -698,13 +711,13 @@ public class XMLSerializer
 
                            dynamicWriteXML.setText(stringBuffer.toString());
                         }
-                        else if(arrayClassName.equals("short") == true)
+                        else if(arrayClassName.equals("short"))
                         {
                            final short[] temp = (short[]) value;
                            size = temp.length;
                            dynamicWriteXML.appendParameter("array", size);
 
-                           final StringBuffer stringBuffer = new StringBuffer();
+                           final StringBuilder stringBuffer = new StringBuilder();
                            for(int i = 0; i < size; i++)
                            {
                               stringBuffer.append(temp[i]);
@@ -713,13 +726,13 @@ public class XMLSerializer
 
                            dynamicWriteXML.setText(stringBuffer.toString());
                         }
-                        else if(arrayClassName.equals("int") == true)
+                        else if(arrayClassName.equals("int"))
                         {
                            final int[] temp = (int[]) value;
                            size = temp.length;
                            dynamicWriteXML.appendParameter("array", size);
 
-                           final StringBuffer stringBuffer = new StringBuffer();
+                           final StringBuilder stringBuffer = new StringBuilder();
                            for(int i = 0; i < size; i++)
                            {
                               stringBuffer.append(temp[i]);
@@ -728,13 +741,13 @@ public class XMLSerializer
 
                            dynamicWriteXML.setText(stringBuffer.toString());
                         }
-                        else if(arrayClassName.equals("long") == true)
+                        else if(arrayClassName.equals("long"))
                         {
                            final long[] temp = (long[]) value;
                            size = temp.length;
                            dynamicWriteXML.appendParameter("array", size);
 
-                           final StringBuffer stringBuffer = new StringBuffer();
+                           final StringBuilder stringBuffer = new StringBuilder();
                            for(int i = 0; i < size; i++)
                            {
                               stringBuffer.append(temp[i]);
@@ -743,13 +756,13 @@ public class XMLSerializer
 
                            dynamicWriteXML.setText(stringBuffer.toString());
                         }
-                        else if(arrayClassName.equals("float") == true)
+                        else if(arrayClassName.equals("float"))
                         {
                            final float[] temp = (float[]) value;
                            size = temp.length;
                            dynamicWriteXML.appendParameter("array", size);
 
-                           final StringBuffer stringBuffer = new StringBuffer();
+                           final StringBuilder stringBuffer = new StringBuilder();
                            for(int i = 0; i < size; i++)
                            {
                               stringBuffer.append(temp[i]);
@@ -758,13 +771,13 @@ public class XMLSerializer
 
                            dynamicWriteXML.setText(stringBuffer.toString());
                         }
-                        else if(arrayClassName.equals("double") == true)
+                        else if(arrayClassName.equals("double"))
                         {
                            final double[] temp = (double[]) value;
                            size = temp.length;
                            dynamicWriteXML.appendParameter("array", size);
 
-                           final StringBuffer stringBuffer = new StringBuffer();
+                           final StringBuilder stringBuffer = new StringBuilder();
                            for(int i = 0; i < size; i++)
                            {
                               stringBuffer.append(temp[i]);
@@ -774,19 +787,23 @@ public class XMLSerializer
                            dynamicWriteXML.setText(stringBuffer.toString());
                         }
                      }
-                     else if((arrayClass.equals(String.class) == true) || (arrayClass.isEnum() == true) || (arrayClass.equals(Boolean.class) == true)
-                           || (arrayClass.equals(Character.class) == true) || (arrayClass.equals(Byte.class) == true)
-                           || (arrayClass.equals(Short.class) == true) || (arrayClass.equals(Integer.class) == true) || (arrayClass.equals(Long.class) == true)
-                           || (arrayClass.equals(Float.class) == true) || (arrayClass.equals(Double.class) == true)
-                           || (arrayClass.equals(StringBuilder.class) == true) || (arrayClass.equals(StringBuffer.class) == true)
-                           || (arrayClass.equals(URL.class) == true) || (arrayClass.equals(URI.class) == true))
+                     else if((arrayClass.equals(String.class)) || (arrayClass.isEnum()) || (arrayClass
+                                                                                                                    .equals(
+                             Boolean.class))
+                           || (arrayClass.equals(Character.class)) || (arrayClass.equals(Byte.class))
+                           || (arrayClass.equals(Short.class)) || (arrayClass.equals(
+                             Integer.class)) || (arrayClass.equals(
+                             Long.class))
+                           || (arrayClass.equals(Float.class)) || (arrayClass.equals(Double.class))
+                           || (arrayClass.equals(StringBuilder.class)) || (arrayClass.equals(StringBuffer.class))
+                           || (arrayClass.equals(URL.class)) || (arrayClass.equals(URI.class)))
                      {
                         array = (Object[]) value;
 
                         size = array.length;
                         dynamicWriteXML.appendParameter("array", size);
 
-                        final StringBuffer stringBuffer = new StringBuffer();
+                        final StringBuilder stringBuffer = new StringBuilder();
                         for(int i = 0; i < size; i++)
                         {
                            if(array[i] == null)
@@ -804,14 +821,14 @@ public class XMLSerializer
 
                         dynamicWriteXML.setText(stringBuffer.toString());
                      }
-                     else if(arrayClass.equals(File.class) == true)
+                     else if(arrayClass.equals(File.class))
                      {
                         array = (Object[]) value;
 
                         size = array.length;
                         dynamicWriteXML.appendParameter("array", size);
 
-                        final StringBuffer stringBuffer = new StringBuffer();
+                        final StringBuilder stringBuffer = new StringBuilder();
                         for(int i = 0; i < size; i++)
                         {
                            if(array[i] == null)
@@ -829,7 +846,7 @@ public class XMLSerializer
 
                         dynamicWriteXML.setText(stringBuffer.toString());
                      }
-                     else if(arrayClass.isArray() == true)
+                     else if(arrayClass.isArray())
                      {
                         throw new IllegalArgumentException("Can't serialze multiple array for now");
                      }
@@ -843,13 +860,14 @@ public class XMLSerializer
                         {
                            final Class<?> realClass = array[0].getClass();
 
-                           if(arrayClass.equals(realClass) == true)
+                           if(arrayClass.equals(realClass))
                            {
                               boolean cohrent = true;
 
                               for(int i = 1; i < size; i++)
                               {
-                                 if((array[i] != null) && (array[i].getClass().equals(realClass) == false))
+                                 if((array[i] != null) && (!array[i].getClass()
+                                                                    .equals(realClass)))
                                  {
                                     cohrent = false;
 
@@ -857,22 +875,23 @@ public class XMLSerializer
                                  }
                               }
 
-                              if(cohrent == true)
+                              if(cohrent)
                               {
                                  arrayClass = realClass;
                                  dynamicWriteXML.appendParameter("arrayRealType", arrayClass.getName());
 
-                                 if(arrayClass.isPrimitive() == true)
+                                 if(arrayClass.isPrimitive())
                                  {
                                     arrayClassName = arrayClass.getName();
 
-                                    if(arrayClassName.equals("boolean") == true)
+                                    if(arrayClassName.equals("boolean"))
                                     {
+                                       @SuppressWarnings("ConstantConditions")
                                        final boolean[] temp = (boolean[]) value;
                                        size = temp.length;
                                        dynamicWriteXML.appendParameter("array", size);
 
-                                       final StringBuffer stringBuffer = new StringBuffer();
+                                       final StringBuilder stringBuffer = new StringBuilder();
                                        for(int i = 0; i < size; i++)
                                        {
                                           stringBuffer.append(temp[i]);
@@ -881,13 +900,14 @@ public class XMLSerializer
 
                                        dynamicWriteXML.setText(stringBuffer.toString());
                                     }
-                                    else if(arrayClassName.equals("char") == true)
+                                    else if(arrayClassName.equals("char"))
                                     {
+                                       @SuppressWarnings("ConstantConditions")
                                        final char[] temp = (char[]) value;
                                        size = temp.length;
                                        dynamicWriteXML.appendParameter("array", size);
 
-                                       final StringBuffer stringBuffer = new StringBuffer();
+                                       final StringBuilder stringBuffer = new StringBuilder();
                                        for(int i = 0; i < size; i++)
                                        {
                                           stringBuffer.append(temp[i]);
@@ -896,13 +916,14 @@ public class XMLSerializer
 
                                        dynamicWriteXML.setText(stringBuffer.toString());
                                     }
-                                    else if(arrayClassName.equals("byte") == true)
+                                    else if(arrayClassName.equals("byte"))
                                     {
+                                       @SuppressWarnings("ConstantConditions")
                                        final byte[] temp = (byte[]) value;
                                        size = temp.length;
                                        dynamicWriteXML.appendParameter("array", size);
 
-                                       final StringBuffer stringBuffer = new StringBuffer();
+                                       final StringBuilder stringBuffer = new StringBuilder();
                                        for(int i = 0; i < size; i++)
                                        {
                                           stringBuffer.append(temp[i]);
@@ -911,13 +932,14 @@ public class XMLSerializer
 
                                        dynamicWriteXML.setText(stringBuffer.toString());
                                     }
-                                    else if(arrayClassName.equals("short") == true)
+                                    else if(arrayClassName.equals("short"))
                                     {
+                                       @SuppressWarnings("ConstantConditions")
                                        final short[] temp = (short[]) value;
                                        size = temp.length;
                                        dynamicWriteXML.appendParameter("array", size);
 
-                                       final StringBuffer stringBuffer = new StringBuffer();
+                                       final StringBuilder stringBuffer = new StringBuilder();
                                        for(int i = 0; i < size; i++)
                                        {
                                           stringBuffer.append(temp[i]);
@@ -926,13 +948,14 @@ public class XMLSerializer
 
                                        dynamicWriteXML.setText(stringBuffer.toString());
                                     }
-                                    else if(arrayClassName.equals("int") == true)
+                                    else if(arrayClassName.equals("int"))
                                     {
+                                       @SuppressWarnings("ConstantConditions")
                                        final int[] temp = (int[]) value;
                                        size = temp.length;
                                        dynamicWriteXML.appendParameter("array", size);
 
-                                       final StringBuffer stringBuffer = new StringBuffer();
+                                       final StringBuilder stringBuffer = new StringBuilder();
                                        for(int i = 0; i < size; i++)
                                        {
                                           stringBuffer.append(temp[i]);
@@ -941,13 +964,14 @@ public class XMLSerializer
 
                                        dynamicWriteXML.setText(stringBuffer.toString());
                                     }
-                                    else if(arrayClassName.equals("long") == true)
+                                    else if(arrayClassName.equals("long"))
                                     {
+                                       @SuppressWarnings("ConstantConditions")
                                        final long[] temp = (long[]) value;
                                        size = temp.length;
                                        dynamicWriteXML.appendParameter("array", size);
 
-                                       final StringBuffer stringBuffer = new StringBuffer();
+                                       final StringBuilder stringBuffer = new StringBuilder();
                                        for(int i = 0; i < size; i++)
                                        {
                                           stringBuffer.append(temp[i]);
@@ -956,13 +980,14 @@ public class XMLSerializer
 
                                        dynamicWriteXML.setText(stringBuffer.toString());
                                     }
-                                    else if(arrayClassName.equals("float") == true)
+                                    else if(arrayClassName.equals("float"))
                                     {
+                                       @SuppressWarnings("ConstantConditions")
                                        final float[] temp = (float[]) value;
                                        size = temp.length;
                                        dynamicWriteXML.appendParameter("array", size);
 
-                                       final StringBuffer stringBuffer = new StringBuffer();
+                                       final StringBuilder stringBuffer = new StringBuilder();
                                        for(int i = 0; i < size; i++)
                                        {
                                           stringBuffer.append(temp[i]);
@@ -971,13 +996,14 @@ public class XMLSerializer
 
                                        dynamicWriteXML.setText(stringBuffer.toString());
                                     }
-                                    else if(arrayClassName.equals("double") == true)
+                                    else if(arrayClassName.equals("double"))
                                     {
+                                       @SuppressWarnings("ConstantConditions")
                                        final double[] temp = (double[]) value;
                                        size = temp.length;
                                        dynamicWriteXML.appendParameter("array", size);
 
-                                       final StringBuffer stringBuffer = new StringBuffer();
+                                       final StringBuilder stringBuffer = new StringBuilder();
                                        for(int i = 0; i < size; i++)
                                        {
                                           stringBuffer.append(temp[i]);
@@ -987,20 +1013,22 @@ public class XMLSerializer
                                        dynamicWriteXML.setText(stringBuffer.toString());
                                     }
                                  }
-                                 else if((arrayClass.equals(String.class) == true) || (arrayClass.isEnum() == true)
-                                       || (arrayClass.equals(Boolean.class) == true) || (arrayClass.equals(Character.class) == true)
-                                       || (arrayClass.equals(Byte.class) == true) || (arrayClass.equals(Short.class) == true)
-                                       || (arrayClass.equals(Integer.class) == true) || (arrayClass.equals(Long.class) == true)
-                                       || (arrayClass.equals(Float.class) == true) || (arrayClass.equals(Double.class) == true)
-                                       || (arrayClass.equals(StringBuilder.class) == true) || (arrayClass.equals(StringBuffer.class) == true)
-                                       || (arrayClass.equals(URL.class) == true) || (arrayClass.equals(URI.class) == true))
+                                 else if((arrayClass.equals(String.class)) || (arrayClass.isEnum())
+                                       || (arrayClass.equals(Boolean.class)) || (arrayClass.equals(
+                                         Character.class))
+                                       || (arrayClass.equals(Byte.class)) || (arrayClass.equals(Short.class))
+                                       || (arrayClass.equals(Integer.class)) || (arrayClass.equals(Long.class))
+                                       || (arrayClass.equals(Float.class)) || (arrayClass.equals(Double.class))
+                                       || (arrayClass.equals(StringBuilder.class)) || (arrayClass.equals(
+                                         StringBuffer.class))
+                                       || (arrayClass.equals(URL.class)) || (arrayClass.equals(URI.class)))
                                  {
                                     array = (Object[]) value;
 
                                     size = array.length;
                                     dynamicWriteXML.appendParameter("array", size);
 
-                                    final StringBuffer stringBuffer = new StringBuffer();
+                                    final StringBuilder stringBuffer = new StringBuilder();
                                     for(int i = 0; i < size; i++)
                                     {
                                        if(array[i] == null)
@@ -1018,14 +1046,14 @@ public class XMLSerializer
 
                                     dynamicWriteXML.setText(stringBuffer.toString());
                                  }
-                                 else if(arrayClass.equals(File.class) == true)
+                                 else if(arrayClass.equals(File.class))
                                  {
                                     array = (Object[]) value;
 
                                     size = array.length;
                                     dynamicWriteXML.appendParameter("array", size);
 
-                                    final StringBuffer stringBuffer = new StringBuffer();
+                                    final StringBuilder stringBuffer = new StringBuilder();
                                     for(int i = 0; i < size; i++)
                                     {
                                        if(array[i] == null)
@@ -1043,7 +1071,7 @@ public class XMLSerializer
 
                                     dynamicWriteXML.setText(stringBuffer.toString());
                                  }
-                                 else if(arrayClass.isArray() == true)
+                                 else if(arrayClass.isArray())
                                  {
                                     throw new IllegalArgumentException("Can't serialze multiple array for now");
                                  }

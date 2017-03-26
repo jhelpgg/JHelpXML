@@ -145,7 +145,7 @@ public class DefaultParseXMLlistener
       //
       final Enumeration<String> keys = parameters.keys();
       String key;
-      while(keys.hasMoreElements() == true)
+      while(keys.hasMoreElements())
       {
          key = keys.nextElement();
          this.temporary.addParameter(key, parameters.get(key));

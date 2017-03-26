@@ -137,7 +137,7 @@ public class MarkupXML
       printStream.print(this.name);
       final Enumeration<String> keys = this.parameters.keys();
       String key;
-      while(keys.hasMoreElements() == true)
+      while(keys.hasMoreElements())
       {
          key = keys.nextElement();
          printStream.print(' ');
@@ -149,7 +149,7 @@ public class MarkupXML
       key = this.text == null
             ? ""
             : this.text.trim();
-      if((key.length() == 0) && (this.children.isEmpty() == true))
+      if((key.length() == 0) && (this.children.isEmpty()))
       {
          if(decal >= 0)
          {
@@ -452,7 +452,7 @@ public class MarkupXML
       final ArrayList<MarkupXML> arrayList = new ArrayList<MarkupXML>();
       for(final MarkupXML child : this.children)
       {
-         if(child.name.equals(name) == true)
+         if(child.name.equals(name))
          {
             arrayList.add(child);
          }

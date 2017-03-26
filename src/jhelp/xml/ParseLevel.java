@@ -38,11 +38,11 @@ public enum ParseLevel
    EXCEPTION_AND_TEXT(false, false, true);
 
    /** Indicates if open/close markup is detect */
-   private boolean makup;
+   private final boolean makup;
    /** Indicates if parameters are detect */
-   private boolean parameter;
+   private final boolean parameter;
    /** Indicates if texts are detect */
-   private boolean text;
+   private final boolean text;
 
    /**
     * Constructs ParseLevel

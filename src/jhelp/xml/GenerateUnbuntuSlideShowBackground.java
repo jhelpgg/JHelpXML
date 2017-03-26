@@ -129,7 +129,7 @@ public class GenerateUnbuntuSlideShowBackground
       {
          File directory = new File(args[0]);
 
-         if((directory.exists() == false) || (directory.isDirectory() == false) || (directory.canRead() == false))
+         if((!directory.exists()) || (!directory.isDirectory()) || (!directory.canRead()))
          {
             throw new IllegalArgumentException("The directory '" + directory.getAbsolutePath()
                   + "' dosen't exits or not a directory or can't be access in read");
@@ -137,7 +137,7 @@ public class GenerateUnbuntuSlideShowBackground
 
          final File file = new File(args[1]);
 
-         if(UtilIO.createFile(file) == false)
+         if(!UtilIO.createFile(file))
          {
             throw new IllegalArgumentException("The file '" + file.getAbsolutePath() + "' can't be created");
          }
@@ -198,7 +198,7 @@ public class GenerateUnbuntuSlideShowBackground
          String previous = null;
          File[] children;
 
-         while(stack.isEmpty() == false)
+         while(!stack.isEmpty())
          {
             directory = stack.pop();
 
@@ -209,7 +209,7 @@ public class GenerateUnbuntuSlideShowBackground
 
                for(final File child : children)
                {
-                  if(child.isDirectory() == true)
+                  if(child.isDirectory())
                   {
                      stack.push(child);
                   }
@@ -267,7 +267,7 @@ public class GenerateUnbuntuSlideShowBackground
             }
          }
 
-         if((previous != null) && (first != null))
+         if(previous != null)
          {
             bufferedWriter.write("   <transition>");
             bufferedWriter.newLine();

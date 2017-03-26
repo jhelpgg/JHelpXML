@@ -108,7 +108,7 @@ public class VerboseParseXMLlistener
       System.out.println("START MARKUP : " + markupName);
       final Enumeration<String> keys = parameters.keys();
       String key;
-      while(keys.hasMoreElements() == true)
+      while(keys.hasMoreElements())
       {
          key = keys.nextElement();
 

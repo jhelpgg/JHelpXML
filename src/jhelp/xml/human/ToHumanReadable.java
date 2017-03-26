@@ -59,7 +59,7 @@ public class ToHumanReadable
       {
          UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
       }
-      catch(final Exception exception)
+      catch(final Exception ignored)
       {
       }
 
@@ -75,7 +75,7 @@ public class ToHumanReadable
       ParserXML parserXML = new ParserXML();
       parserXML.setCompressWhiteCharactersInTextOnOneSpace(true);
 
-      while(oneMore == true)
+      while(oneMore)
       {
          JOptionPane.showMessageDialog(null, "Choose the file to convert");
 
@@ -92,7 +92,7 @@ public class ToHumanReadable
          }
 
          source = new File(directory, file);
-         if(source.exists() == false)
+         if(!source.exists())
          {
             JOptionPane.showMessageDialog(null, UtilText.concatenate("File ", source.getAbsolutePath(), " doesn't exists !"), "Stupid !",
                   JOptionPane.WARNING_MESSAGE);
@@ -115,13 +115,13 @@ public class ToHumanReadable
 
          destitnation = new File(directory, file);
 
-         if(source.equals(destitnation) == true)
+         if(source.equals(destitnation))
          {
             JOptionPane.showMessageDialog(null, "You looking for program crash ? I said choose a different one", "Idiot !", JOptionPane.ERROR_MESSAGE);
             break;
          }
 
-         if(UtilIO.createFile(destitnation) == false)
+         if(!UtilIO.createFile(destitnation))
          {
             JOptionPane.showMessageDialog(null, UtilText.concatenate("Can't create ", destitnation.getAbsolutePath()), "Error !", JOptionPane.ERROR_MESSAGE);
             break;
@@ -152,7 +152,7 @@ public class ToHumanReadable
                {
                   fileInputStream.close();
                }
-               catch(final Exception exception)
+               catch(final Exception ignored)
                {
                }
             }
@@ -283,7 +283,7 @@ public class ToHumanReadable
 
       final Enumeration<String> names = parameters.keys();
       String name;
-      while(names.hasMoreElements() == true)
+      while(names.hasMoreElements())
       {
          name = names.nextElement();
 

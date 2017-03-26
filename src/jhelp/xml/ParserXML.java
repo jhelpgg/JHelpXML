@@ -54,7 +54,7 @@ public class ParserXML
    {
       final String value = parameters.get(parameter);
 
-      if((value == null) && (mustHave == true))
+      if((value == null) && (mustHave))
       {
          throw new MissingRequiredParameterException(parameter, markup);
       }
@@ -64,7 +64,7 @@ public class ParserXML
          return defaultValue;
       }
 
-      if((value.equalsIgnoreCase("true") == false) && (value.equalsIgnoreCase("false") == false))
+      if((!value.equalsIgnoreCase("true")) && (!value.equalsIgnoreCase("false")))
       {
          throw new InvalidParameterValueException(parameter, markup, UtilText.concatenate(value, " is not a boolean"));
       }
@@ -96,7 +96,7 @@ public class ParserXML
    {
       final String value = parameters.get(parameter);
 
-      if((value == null) && (mustHave == true))
+      if((value == null) && (mustHave))
       {
          throw new MissingRequiredParameterException(parameter, markup);
       }
@@ -140,7 +140,7 @@ public class ParserXML
    {
       final String value = parameters.get(parameter);
 
-      if((value == null) && (mustHave == true))
+      if((value == null) && (mustHave))
       {
          throw new MissingRequiredParameterException(parameter, markup);
       }
@@ -180,7 +180,7 @@ public class ParserXML
    {
       final String value = parameters.get(parameter);
 
-      if((value == null) && (mustHave == true))
+      if((value == null) && (mustHave))
       {
          throw new MissingRequiredParameterException(parameter, markup);
       }
@@ -273,6 +273,7 @@ public class ParserXML
     * @throws ExceptionParseXML
     *            On parsing problem
     */
+   @SuppressWarnings("ConstantConditions")
    public void parse(final InputStream inputStream) throws ExceptionParseXML
    {
       if(inputStream == null)
@@ -328,23 +329,23 @@ public class ParserXML
                switch(car)
                {
                   case '<':
-                     if((onQuote == true) || (onComment == true))
+                     if((onQuote) || (onComment))
                      {
                         stringBuffer.append(car);
                      }
-                     else if((startMarkup == true) || (waitCloseBarcket == true))
+                     else if((startMarkup) || (waitCloseBarcket))
                      {
                         throw new IllegalArgumentException("Syntax error");
                      }
                      else
                      {
-                        if(onText == true)
+                        if(onText)
                         {
                            temp = stringBuffer.toString().trim();
                            if(temp.length() > 0)
                            {
                               this.parseXMLlistener.textFind(temp);
-                              if(this.parseLevel.isText() == true)
+                              if(this.parseLevel.isText())
                               {
                                  this.parseXMLprogressListener.findTextMarkup(markup, temp, line, column);
                               }
@@ -353,7 +354,8 @@ public class ParserXML
                         }
                         stringBuffer.delete(0, stringBuffer.length());
                         column = ParserXML.readUntilWhiteEqualOrEnd(stringBuffer, characters, column) + 1;
-                        if(stringBuffer.toString().equals("!--") == true)
+                        if(stringBuffer.toString()
+                                       .equals("!--"))
                         {
                            onComment = true;
                         }
@@ -361,7 +363,7 @@ public class ParserXML
                         {
                            waitCloseBarcket = true;
                            this.parseXMLlistener.endMarkup(stringBuffer.substring(1));
-                           if(this.parseLevel.isMakup() == true)
+                           if(this.parseLevel.isMakup())
                            {
                               this.parseXMLprogressListener.findCloseMarkup(markup, line, column);
                            }
@@ -375,7 +377,7 @@ public class ParserXML
 
                            markup = stringBuffer.toString();
                            parameters.clear();
-                           if(this.parseLevel.isMakup() == true)
+                           if(this.parseLevel.isMakup())
                            {
                               this.parseXMLprogressListener.findOpenMarkup(markup, line, column);
                            }
@@ -387,10 +389,10 @@ public class ParserXML
                      backSlash = false;
                   break;
                   case '>':
-                     if((onQuote == true) || (onComment == true))
+                     if((onQuote) || (onComment))
                      {
                         stringBuffer.append(car);
-                        if((onComment == true) && (column > 2) && (characters[column - 2] == '-') && (characters[column - 3] == '-'))
+                        if((onComment) && (column > 2) && (characters[column - 2] == '-') && (characters[column - 3] == '-'))
                         {
                            this.parseXMLlistener.commentFind(stringBuffer.substring(0, stringBuffer.length() - 3).trim());
                            stringBuffer.delete(0, stringBuffer.length());
@@ -399,11 +401,11 @@ public class ParserXML
                      }
                      else
                      {
-                        if((waitCloseBarcket == false) && (startMarkup == false))
+                        if((!waitCloseBarcket) && (!startMarkup))
                         {
                            throw new IllegalArgumentException("Syntax error");
                         }
-                        if(startMarkup == true)
+                        if(startMarkup)
                         {
                            this.parseXMLlistener.startMakup(markup, parameters);
                            onText = true;
@@ -411,7 +413,7 @@ public class ParserXML
                         if((column > 1) && (characters[column - 2] == '/'))
                         {
                            this.parseXMLlistener.endMarkup(markup);
-                           if(this.parseLevel.isMakup() == true)
+                           if(this.parseLevel.isMakup())
                            {
                               this.parseXMLprogressListener.findCloseMarkup(markup, line, column);
                            }
@@ -424,11 +426,11 @@ public class ParserXML
                      backSlash = false;
                   break;
                   case '\\':
-                     if((onComment == false) && (onQuote == false) && (onText == false))
+                     if((!onComment) && (!onQuote) && (!onText))
                      {
                         throw new IllegalArgumentException("Syntax error");
                      }
-                     if(backSlash == true)
+                     if(backSlash)
                      {
                         stringBuffer.append(car);
                         backSlash = false;
@@ -439,7 +441,7 @@ public class ParserXML
                      }
                   break;
                   case '"':
-                     if((onText == true) || (onComment == true) || (backSlash == true))
+                     if((onText) || (onComment) || (backSlash))
                      {
                         stringBuffer.append(car);
                         backSlash = false;
@@ -450,14 +452,14 @@ public class ParserXML
                      }
                   break;
                   default:
-                     if(backSlash == true)
+                     if(backSlash)
                      {
                         stringBuffer.append(car);
                         backSlash = false;
                         break;
                      }
 
-                     if(searchNextParameter == true)
+                     if(searchNextParameter)
                      {
                         if(car > 32)
                         {
@@ -473,21 +475,21 @@ public class ParserXML
                               {
                                  throw new IllegalArgumentException("Syntax error");
                               }
-                              while(onQuote == true)
+                              while(onQuote)
                               {
                                  column++;
                                  car = characters[column - 1];
                                  switch(car)
                                  {
                                     case '\\':
-                                       if(backSlash == true)
+                                       if(backSlash)
                                        {
                                           stringBuffer.append(car);
                                        }
                                        backSlash = !backSlash;
                                     break;
                                     case '"':
-                                       if(backSlash == true)
+                                       if(backSlash)
                                        {
                                           stringBuffer.append(car);
                                           backSlash = false;
@@ -504,7 +506,7 @@ public class ParserXML
                                  }
                               }
                               parameters.put(temp, stringBuffer.toString());
-                              if(this.parseLevel.isParameter() == true)
+                              if(this.parseLevel.isParameter())
                               {
                                  this.parseXMLprogressListener.findParameter(markup, temp, line, column);
                               }
@@ -519,9 +521,9 @@ public class ParserXML
                      }
                      else
                      {
-                        if(((onText == true) || (onComment == true)) && (car <= 32))
+                        if(((onText) || (onComment)) && (car <= 32))
                         {
-                           if((atLeatOneWhiteChar == false) || (this.compressWhiteCharactersInTextOnOneSpace == false))
+                           if((!atLeatOneWhiteChar) || (!this.compressWhiteCharactersInTextOnOneSpace))
                            {
                               stringBuffer.append(' ');
                               atLeatOneWhiteChar = true;
@@ -536,9 +538,9 @@ public class ParserXML
                }
             }
             lineRead = bufferedReader.readLine();
-            if((lineRead != null) && ((onText == true) || (onComment == true)))
+            if((lineRead != null) && ((onText) || (onComment)))
             {
-               if((atLeatOneWhiteChar == false) || (this.compressWhiteCharactersInTextOnOneSpace == false))
+               if((!atLeatOneWhiteChar) || (!this.compressWhiteCharactersInTextOnOneSpace))
                {
                   stringBuffer.append(' ');
                   atLeatOneWhiteChar = true;
